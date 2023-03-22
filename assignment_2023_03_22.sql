@@ -1,3 +1,4 @@
+-- Postgres
 -- Q1. Write the query to get the department and department wise total(sum) salary, display it in ascending order according to salary.
 SELECT
   D.department_name,
