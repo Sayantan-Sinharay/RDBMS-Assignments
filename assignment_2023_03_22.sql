@@ -68,15 +68,15 @@ HAVING
 
 -- Q6. Write a query to show department_name and assignedTo where assignedTo will be “One candidate” if its assigned to only one employee otherwise “Multiple candidates”
 SELECT
-  D.department_name
+  D.department_name,
+  CASE
+    WHEN COUNT(E.employee_id) > 1 THEN "Multiple candidates"
+    ELSE "One candidates"
+  END assignedTo
 FROM
   Departments D,
   Employees E
 WHERE
   D.department_id = E.department_id
-  AND CASE
-    WHEN COUNT(E.employee_id) > 1 THEN "Multiple candidates"
-    WHEN COUNT(E.employee_id) = 1 THEN "One candidates"
-  END AS assignedTo
 GROUP BY
   E.department_id;
