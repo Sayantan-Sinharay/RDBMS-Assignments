@@ -49,7 +49,7 @@ CREATE TABLE Employees (
   phone_number VARCHAR(255),
   hire_date DATE NOT NULL,
   job_id INT NOT NULL REFERENCES Jobs(job_id),
-  salary REAL NOT NULL,
+  salary REAL,
   manager_id INT REFERENCES Employees(employee_id) CHECK(manager_id != employee_id),
   department_id VARCHAR(255) NOT NULL REFERENCES Departments(department_id)
 );
@@ -57,8 +57,8 @@ CREATE TABLE Employees (
 -- Create Dependents Table
 CREATE TABLE Dependents (
   dependent_id SERIAL PRIMARY KEY NOT NULL,
-  first_name VARCHAR(255) NOT NULL,
-  last_name VARCHAR(255) NOT NULL,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
   relationship VARCHAR(255),
   employee_id INT NOT NULL REFERENCES employees(employee_id)
 );
@@ -215,8 +215,9 @@ VALUES
   ('D009', 'Quality Assurance', 'L010'),
   ('D010', 'Information Technology', 'L006');
 
+Employees TABLE
 INSERT INTO
-  employees (
+  Employees (
     first_name,
     last_name,
     email,
@@ -231,127 +232,103 @@ VALUES
   (
     'John',
     'Doe',
-    'johndoe@example.com',
+    'johndoe@email.com',
     '555-1234',
-    '2022-01-01',
+    '2020-01-01',
     1,
-    50000,
-    1,
-    1
+    80000.00,
+    NULL,
+    'D001'
   ),
   (
     'Jane',
     'Doe',
-    'janedoe@example.com',
+    'janedoe@email.com',
     '555-5678',
-    '2022-01-15',
+    '2021-05-15',
     2,
-    75000,
+    60000.00,
     1,
-    1
+    'D001'
   ),
   (
     'Bob',
     'Smith',
-    'bobsmith@example.com',
-    '555-2468',
-    '2022-02-01',
+    'bobsmith@email.com',
+    '555-9012',
+    '2019-03-01',
     3,
-    100000,
-    2,
-    2
+    90000.00,
+    NULL,
+    'D002'
   ),
   (
     'Alice',
-    'Jones',
-    'alicejones@example.com',
-    '555-7890',
-    '2022-02-15',
-    1,
-    60000,
-    2,
-    2
+    'Johnson',
+    'alicejohnson@email.com',
+    '555-3456',
+    '2022-02-01',
+    4,
+    50000.00,
+    3,
+    'D002'
   ),
   (
     'Mike',
-    'Brown',
-    'mikebrown@example.com',
-    '555-1357',
-    '2022-03-01',
-    2,
-    80000,
-    3,
-    3
+    'Williams',
+    'mikewilliams@email.com',
+    '555-7890',
+    '2018-06-01',
+    5,
+    70000.00,
+    NULL,
+    'D003'
   ),
   (
     'Sarah',
-    'Johnson',
-    'sarahjohnson@example.com',
-    '555-8020',
-    '2022-03-15',
-    3,
-    120000,
-    3,
-    3
+    'Jones',
+    'sarahjones@email.com',
+    '555-2345',
+    '2020-11-15',
+    6,
+    55000.00,
+    5,
+    'D003'
   ),
   (
     'Tom',
-    'Wilson',
-    'tomwilson@example.com',
-    '555-3698',
-    '2022-04-01',
-    1,
-    65000,
-    4,
-    4
+    'Davis',
+    'tomdavis@email.com',
+    '555-6789',
+    '2019-09-01',
+    7,
+    100000.00,
+    NULL,
+    'D004'
   ),
   (
     'Emily',
-    'Davis',
-    'emilydavis@example.com',
-    '555-2468',
-    '2022-04-15',
-    2,
-    90000,
-    4,
-    4
-  ),
-  (
-    'Mark',
-    'Miller',
-    'markmiller@example.com',
-    '555-1478',
-    '2022-05-01',
-    3,
-    110000,
-    5,
-    5
-  ),
-  (
-    'Karen',
-    'Taylor',
-    'karentaylor@example.com',
-    '555-3698',
-    '2022-05-15',
-    1,
-    70000,
-    5,
-    5
+    'Brown',
+    'emilybrown@email.com',
+    '555-0123',
+    '2021-07-01',
+    8,
+    75000.00,
+    7,
+    'D004'
   );
 
+Dependents TABLE
 INSERT INTO
   Dependents (first_name, last_name, relationship, employee_id)
 VALUES
-  ('Amy', 'Doe', 'Daughter', 1),
-  ('Ben', 'Doe', 'Son', 1),
-  ('Lucy', 'Smith', 'Daughter', 3),
-  ('Max', 'Jones', 'Son', 4),
-  ('Ella', 'Brown', 'Daughter', 5),
-  ('Jacob', 'Johnson', 'Son', 6),
-  ('Olivia', 'Wilson', 'Daughter', 7),
-  ('Liam', 'Davis', 'Son', 8),
-  ('Ava', 'Miller', 'Daughter', 9),
-  ('Noah', 'Taylor', 'Son', 10);
+  ('Jack', 'Doe', 'Child', 1),
+  ('Jill', 'Doe', 'Child', 1),
+  ('Sophie', 'Smith', 'Spouse', 3),
+  ('Alex', 'Johnson', 'Child', 4),
+  ('David', 'Jones', 'Child', 5),
+  ('Olivia', 'Davis', 'Spouse', 7),
+  ('Noah', 'Brown', 'Child', 8);
 
 -- Constraints
 ALTER TABLE
