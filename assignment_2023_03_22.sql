@@ -1,11 +1,5 @@
 -- postgres
--- Q1. From the following tables write a SQL query to find the details of an employee.
-RETURN FULL name,
-email,
-salary,
-Department Name,
-postal code,
-AND City.
+-- Q1. From the following tables write a SQL query to find the details of an employee. RETURN FULL name,email, salary, Department Name, postal code, AND City.
 SELECT
   CONCAT_WS(' ', E.first_name, E.last_name) full_name,
   E.email,
