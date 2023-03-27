@@ -1,63 +1,82 @@
 -- Postgres
--- Q1. Select all records in table “Employees” whose last name starts with ‘Sah’
+-- Q1. Write the query to get the department and department wise total(sum) salary, display it in ascending order according to salary.
 SELECT
-  *
+  D.department_name,
+  SUM(E.salary) Total Salary,
 FROM
-  Employees
+  Employees E,
+  Departments D
 WHERE
-  last_name LIKE "Sah%";
-
--- Q2. Select 10 employees who were hired between 1st June, 2021 to 15th February, 2022. Start retrieving from the 4th record in the table
-SELECT
-  *
-FROM
-  employees
-WHERE
-  hire_date BETWEEN '2021-06-01'
-  AND '2022-02-15'
-LIMIT
-  10 OFFSET 3;
-
--- Q3. Find distinct top 5 salary values (only salary column), using alias for column as “Top 5 salaries”
-SELECT
-  DISTINCT salary AS Top 5 Salaries
-FROM
-  Employees
+  D.department_id = E.department_id
+GROUP BY
+  E.department_id
 ORDER BY
-  ASC salary
-LIMIT
-  5;
+  ASC SUM(E.salary);
 
--- Q4. Find first_name, last_name and email of employees from the employees table where salary lies between 25000 to 45000
+-- Q2. Write the query to get the department, total no. employee of each department, total(sum) salary with respect to department from "Employee" table.
 SELECT
-  first_name,
-  last_name,
-  email
+  D.department_name,
+  COUNT(E.employee_id),
+  SUM(E.salary) Total Salary,
 FROM
-  Employees
+  Employees E,
+  Departments D
 WHERE
-  salary BETWEEN 25000
-  AND 45000;
+  D.department_id = E.department_id
+GROUP BY
+  E.department_id;
 
--- Q5. Write a query to find first_name, manager_id and salary where the department_id is 101 and sort the result in ascending order of salary.
+-- Q3. Get department wise maximum salary from "Employee" table order by salary ascending
 SELECT
-  first_name,
-  last_name,
-  manager_id,
-  salary
+  D.department_name,
+  MAX(E.salary)
 FROM
-  Employees
+  Employees E,
+  Departments D
 WHERE
-  department_id = 101
+  D.department_id = E.department_id
+GROUP BY
+  department_id
 ORDER BY
-  ASC salary;
+  ASC MAX(E.salary);
 
--- Q6. Find all the first_name that start with the letter “A”, and find all the last_name that have “TH” in the 2nd and 3rd positions.
+-- Q4. Write a query to get the departments where average salary is more than 60k 
 SELECT
-  first_name,
-  last_name
+  D.department_name
 FROM
-  Employees
+  Departments D,
+  Employees E
 WHERE
-  first_name LIKE "A%"
-  AND last_name LIKE "_TH%"
+  D.department_id = E.department_id
+GROUP BY
+  E.department_id
+HAVING
+  AVG(E.salary) > 60000;
+
+-- Q5. Write down the query to fetch department name assign to more than one Employee
+SELECT
+  D.department_name
+FROM
+  Departments D,
+  Employees E
+WHERE
+  D.department_id = E.department_id
+GROUP BY
+  E.department_id
+HAVING
+  COUNT(E.employee_id) > 1;
+
+-- Q6. Write a query to show department_name and assignedTo where assignedTo will be “One candidate” if its assigned to only one employee otherwise “Multiple candidates”
+SELECT
+  D.department_name,
+  CASE
+    WHEN COUNT(E.employee_id) > 1 THEN "Multiple candidates"
+    ELSE "One candidates"
+  END assignedTo
+FROM
+  Departments D,
+  Employees E
+WHERE
+  D.department_id = E.department_id
+GROUP BY
+  E.department_id;

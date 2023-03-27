@@ -44,30 +44,45 @@ HAVING
   AVG(E.salary) > 10000;
 
 -- Q4. From the following table write a SQL query to find all the first_names and last_names in both dependents and employees tables. Return the duplicate records as well and order the records in descending order of the last_name column.
+-- SELECT
+--   E.first_name,
+--   E.last_name,
+--   D.first_name,
+--   D.last_name
+-- FROM
+--   Employees E
+--   INNER JOIN Dependents D ON E.employee_id = D.employee_id
+-- WHERE
+--   e.employee_id = ALL(
+--     SELECT
+--       E.employee_id
+--     FROM
+--       Employees E
+--       INNER JOIN Dependents D ON E.employee_id = D.employee_id
+--     GROUP BY
+--       E.employee_id,
+--       D.employee_id
+--     HAVING
+--       count(D.employee_id) > 1
+--   )
+-- ORDER BY
+--   E.last_name DESC,
+--   D.last_name;
 SELECT
   E.first_name,
-  E.last_name,
+  E.last_name
+FROM
+  Employees E
+UNION
+ALL
+SELECT
   D.first_name,
   D.last_name
 FROM
-  Employees E
-  INNER JOIN Dependents D ON E.employee_id = D.employee_id
-WHERE
-  e.employee_id = ALL(
-    SELECT
-      E.employee_id
-    FROM
-      Employees E
-      INNER JOIN Dependents D ON E.employee_id = D.employee_id
-    GROUP BY
-      E.employee_id,
-      D.employee_id
-    HAVING
-      count(D.employee_id) > 1
-  )
+  Dependents D
 ORDER BY
-  E.last_name,
-  D.last_name;
+  D.last_name DESC,
+  E.last_name DESC;
 
 -- Q5. From the following table write a SQL query to list every employee that has a manager with the name of his or her manager.
 SELECT

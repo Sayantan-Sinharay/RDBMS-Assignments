@@ -318,7 +318,7 @@ VALUES
     'D004'
   );
 
-Dependents TABLE
+-- Dependents TABLE
 INSERT INTO
   Dependents (first_name, last_name, relationship, employee_id)
 VALUES
