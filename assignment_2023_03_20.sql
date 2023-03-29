@@ -5,7 +5,7 @@ SELECT
 FROM
   Employees
 WHERE
-  last_name LIKE "Sah%";
+  last_name LIKE 'Sah%';
 
 -- Q2. Select 10 employees who were hired between 1st June, 2021 to 15th February, 2022. Start retrieving from the 4th record in the table
 SELECT
@@ -20,11 +20,11 @@ LIMIT
 
 -- Q3. Find distinct top 5 salary values (only salary column), using alias for column as “Top 5 salaries”
 SELECT
-  DISTINCT salary AS Top 5 Salaries
+  DISTINCT salary AS "Top 5 Salaries"
 FROM
   Employees
 ORDER BY
-  ASC salary
+  salary DESC
 LIMIT
   5;
 
@@ -42,7 +42,6 @@ WHERE
 -- Q5. Write a query to find first_name, manager_id and salary where the department_id is 101 and sort the result in ascending order of salary.
 SELECT
   first_name,
-  last_name,
   manager_id,
   salary
 FROM
@@ -50,7 +49,7 @@ FROM
 WHERE
   department_id = 101
 ORDER BY
-  ASC salary;
+  salary ASC;
 
 -- Q6. Find all the first_name that start with the letter “A”, and find all the last_name that have “TH” in the 2nd and 3rd positions.
 SELECT
