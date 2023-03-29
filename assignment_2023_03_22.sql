@@ -141,7 +141,7 @@ FROM
 WHERE
   D.city != L.city
   AND E.hire_date > NOW() - '3 years' :: INTERVAL
-  AND E.employee_id = ALL(
+  AND E.employee_id IN (
     SELECT
       E.employee_id
     FROM
